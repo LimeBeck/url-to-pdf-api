@@ -54,8 +54,8 @@ async function render(_opts = {}) {
     },
     output: 'pdf',
     pdf: {
-      format: 'A4',
       printBackground: true,
+      preferCSSPageSize: true
     },
     screenshot: {
       type: 'png',
