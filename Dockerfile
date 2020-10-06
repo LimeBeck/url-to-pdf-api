@@ -1,4 +1,4 @@
-FROM node:8.7.0
+FROM node:14.13.0-stretch-slim
 
 WORKDIR /usr/src/app
 ENV NODE_ENV production
@@ -20,7 +20,7 @@ RUN apt-get update \
 COPY package.json .
 COPY yarn.lock .
 
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 COPY . .
 
