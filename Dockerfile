@@ -5,6 +5,8 @@ ENV NODE_ENV production
 ENV PORT 9000
 EXPOSE 9000
 
+ENV HEALTHCHECK_URL https://google.com
+
 RUN apt-get update \
     && apt-get install -yq \
         gconf-service libasound2 libatk1.0-0 libc6 \
@@ -21,6 +23,8 @@ COPY package.json .
 COPY yarn.lock .
 
 RUN yarn install --frozen-lockfile
+
+HEALTHCHECK --interval=300s --timeout=30s --start-period=50s --retries=3 CMD [ "wget -qO- localhost:3000/api/render?url=${HEALTHCHECK_URL} &> /dev/null" ]
 
 COPY . .
 
